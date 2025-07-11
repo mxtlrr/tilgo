@@ -1,5 +1,6 @@
-#include <iostream>
+#include <windows.h>
 
-int main(void){
-	std::printf("Hello world!\n");
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved){
+	if(fdwReason != DLL_PROCESS_ATTACH) return TRUE;
+	return TRUE;
 }

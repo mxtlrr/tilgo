@@ -8,3 +8,5 @@ A C++ mod menu for Plants vs. Zombies.
 ```
 make
 ```
+
+To use tilgo, use any DLL injector, and inject `bin/tilgo.dll`.
