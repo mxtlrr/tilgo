@@ -1,6 +1,11 @@
-#include <windows.h>
+#include <Windows.h>
+#include "game.hpp"
 
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved){
-	if(fdwReason != DLL_PROCESS_ATTACH) return TRUE;
-	return TRUE;
+#define UNUSED(x) (void)x
+
+int main(void){
+	Game g;
+
+	std::printf("tilgo: game base %x\n", g.gamebase);
+	return 0;
 }
