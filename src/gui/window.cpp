@@ -36,19 +36,25 @@ void Window_Status(ImGuiIO& io, Game* g, PointerChains* p){
 	ImGui::Begin("Gameplay Status");
 
 	ImGui::Text("Sun Amount: %d", g->readMem<unsigned int>(p->GetIndex(0)));
+	
 	ImGui::Text("FPS: %.2f", io.Framerate);
 	ImGui::End();
 }
 
+
 void Mods(Game* g, PointerChains* p){
 	ImGui::Begin("Mods");
-
+	
 	// Give sun
 	static char give_sun_buf[50] = { 0 };
 	ImGui::InputText("##", give_sun_buf, 15); ImGui::SameLine();
 	if(ImGui::Button("Give Sun"))
-		g->writeMem<DWORD>(std::atoi(give_sun_buf), p->GetIndex(0));
+	g->writeMem<DWORD>(std::atoi(give_sun_buf), p->GetIndex(0));
 	
+	if(ImGui::Button("Re-resolve Pointers")){
+		p->ClearPointerChains();
+		p->Resolve(g, SUN_COUNT_OFF, sun_count_chain);
+	}
 
 	ImGui::End();
 }

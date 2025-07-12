@@ -22,6 +22,10 @@ uintptr_t PointerChains::GetIndex(int index){
 	return this->ptr_chains[index];
 }
 
+void PointerChains::ClearPointerChains(void){
+	this->ptr_chains.clear();
+}
+
 
 /***** ****/
 std::vector<DWORD> sun_count_chain = {

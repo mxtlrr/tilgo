@@ -19,6 +19,7 @@ class PointerChains {
 		PointerChains(Game* g);
 		uintptr_t Resolve(Game* g, uintptr_t off, std::vector<DWORD> chain);
 		uintptr_t GetIndex(int index);
+		void ClearPointerChains(void);
 };
 
 

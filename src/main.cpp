@@ -43,7 +43,7 @@ int main(void){
 	ZeroMemory(&dbg, sizeof(dbg));
 	while(!done){
 		// Are there any debug events?
-		WaitForDebugEvent(&dbg, 50); // Wait 50 milliseconds
+		WaitForDebugEvent(&dbg, (int)(1000/60));
 		HandleDbg(&dbg);
 
 		// No? Continue executing as normal.
