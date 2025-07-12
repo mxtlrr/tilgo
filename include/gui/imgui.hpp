@@ -23,5 +23,5 @@ void CleanupDeviceD3D();
 void CreateRenderTarget();
 void CleanupRenderTarget();
 
-void Window_Status(Game* g, PointerChains* p);
+void Window_Status(ImGuiIO& io, Game* g, PointerChains* p);
 void Mods(Game* g, PointerChains* p);

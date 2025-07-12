@@ -17,6 +17,7 @@ class Game {
 	public:
 		HANDLE h;
 		uintptr_t gamebase;
+		DWORD pid;
 
 		Game();
 		~Game();

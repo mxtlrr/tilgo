@@ -43,17 +43,27 @@ uintptr_t getGameBase(DWORD procId) {
 
 Game::Game() {
 	while(true){
+		this->pid = getPID("popcapgame1.exe");
 		this->h = OpenProcess(PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION,
-					FALSE, getPID("popcapgame1.exe"));
+					FALSE, this->pid);
 		if(this->h != INVALID_HANDLE_VALUE) break;
 
 		printf("Failed to open process! (EC: %ld) Retrying...\n", GetLastError());
 		Sleep(1000);
 	}
 
-	this->gamebase = getGameBase(getPID("popcapgame1.exe"));
+	
+	this->gamebase = getGameBase(this->pid);
+	printf("flux: PID is %ld and game base is %#x\n", this->pid, this->gamebase);
+	printf("flux: Asking PvZ to let me debug it...");
+
+	if(DebugActiveProcess(this->pid) == 0){
+		printf("couldn't! (error code: %ld)\n", GetLastError());
+		exit(1);
+	} else printf("success!\n");
 }
 
 Game::~Game(){
 	CloseHandle(this->h);
+	DebugActiveProcessStop(this->pid);
 }

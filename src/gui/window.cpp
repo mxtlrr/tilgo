@@ -32,10 +32,11 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	return ::DefWindowProcW(hWnd, msg, wParam, lParam);
 }
 
-void Window_Status(Game* g, PointerChains* p){
+void Window_Status(ImGuiIO& io, Game* g, PointerChains* p){
 	ImGui::Begin("Gameplay Status");
 
 	ImGui::Text("Sun Amount: %d", g->readMem<unsigned int>(p->GetIndex(0)));
+	ImGui::Text("FPS: %.2f", io.Framerate);
 	ImGui::End();
 }
 

@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include "game.hpp"
 #include "ptr.hpp"
+#include "dbg.hpp"
 #define UNUSED(x) (void)x
 
 /* ImGui */
@@ -36,8 +37,18 @@ int main(void){
 	ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 
 	bool done = false;
+
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	DEBUG_EVENT dbg;
+	ZeroMemory(&dbg, sizeof(dbg));
 	while(!done){
+		// Are there any debug events?
+		WaitForDebugEvent(&dbg, 50); // Wait 50 milliseconds
+		HandleDbg(&dbg);
+
+		// No? Continue executing as normal.
+		ContinueDebugEvent(dbg.dwProcessId, dbg.dwThreadId, DBG_CONTINUE);
+
 		MSG msg;
 		while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)){
 			TranslateMessage(&msg);
@@ -58,7 +69,7 @@ int main(void){
 		ImGui::NewFrame();
 
 		// Show some windows!
-		Window_Status(&g, &p);
+		Window_Status(io, &g, &p);
 		Mods(&g, &p);
 
 		ImGui::Render();
