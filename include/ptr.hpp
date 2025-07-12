@@ -23,7 +23,7 @@ class PointerChains {
 
 
 /* Pointers */
-#define SUN_COUNT_OFF 0x003270A8
+#define SUN_COUNT_OFF 0x00326658
 extern std::vector<DWORD> sun_count_chain;
 
 /* Addresses in memory that do stuff */

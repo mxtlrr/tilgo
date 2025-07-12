@@ -32,8 +32,22 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	return ::DefWindowProcW(hWnd, msg, wParam, lParam);
 }
 
-void Window_Status(Game g, PointerChains p){
+void Window_Status(Game* g, PointerChains* p){
 	ImGui::Begin("Gameplay Status");
-	ImGui::Text("Sun Amount: %ld", g.readMem<DWORD>(p.GetIndex(0)));
+
+	ImGui::Text("Sun Amount: %d", g->readMem<unsigned int>(p->GetIndex(0)));
+	ImGui::End();
+}
+
+void Mods(Game* g, PointerChains* p){
+	ImGui::Begin("Mods");
+
+	// Give sun
+	static char give_sun_buf[50] = { 0 };
+	ImGui::InputText("##", give_sun_buf, 15); ImGui::SameLine();
+	if(ImGui::Button("Give Sun"))
+		g->writeMem<DWORD>(std::atoi(give_sun_buf), p->GetIndex(0));
+	
+
 	ImGui::End();
 }

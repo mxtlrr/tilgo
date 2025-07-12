@@ -12,6 +12,8 @@ int main(void){
 	PointerChains p(&g);
 	Window w;
 
+	printf("%#x: %ld\n", p.GetIndex(0), g.readMem<DWORD>(p.GetIndex(0)));
+
 	// Initialize Direct3D
 	if (!CreateDeviceD3D(w.hwnd)){
 		CleanupDeviceD3D();
@@ -56,7 +58,8 @@ int main(void){
 		ImGui::NewFrame();
 
 		// Show some windows!
-		Window_Status(g, p);
+		Window_Status(&g, &p);
+		Mods(&g, &p);
 
 		ImGui::Render();
 		const float clear_color_with_alpha[4] = { clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w };
