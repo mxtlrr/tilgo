@@ -1,7 +1,7 @@
 CC := g++
 CFLAGS := -Iinclude -O2 -Wall -Wextra -g -std=c++23
 LDFLAGS := 
-TARGET := bin/tilgo.exe
+TARGET := bin/flux.exe
 
 override CPPFILES := $(wildcard src/*.cpp)
 override OFILES := $(CPPFILES:.cpp=.o)

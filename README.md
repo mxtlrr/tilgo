@@ -1,4 +1,4 @@
-# tilgo
+# flux
 A C++ mod menu for Plants vs. Zombies.
 
 ## Compilation

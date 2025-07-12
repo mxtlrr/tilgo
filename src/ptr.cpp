@@ -2,7 +2,7 @@
 
 
 PointerChains::PointerChains(Game* g){
-	printf("tilgo: resolving pointer chains...\n");
+	printf("flux: resolving pointer chains...\n");
 	this->Resolve(g, SUN_COUNT_OFF, sun_count_chain);
 }
 
@@ -25,5 +25,5 @@ uintptr_t PointerChains::GetIndex(int index){
 
 /***** ****/
 std::vector<DWORD> sun_count_chain = {
-	0xc, 0x2c, 0x0, 0x68, 0x0, 0xf0, 0x16c, 0xa8, 0xb44, 0x5578
+	0x358, 0x14, 0x18, 0x4, 0x0, 0x68, 0x0, 0x74, 0x254, 0x5578
 };

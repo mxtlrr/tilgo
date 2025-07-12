@@ -7,5 +7,6 @@ int main(void){
 	Game g;
 	PointerChains p(&g);
 
+	printf("%ld", g.readMem<DWORD>(p.GetIndex(0)));
 	return 0;
 }

@@ -23,5 +23,8 @@ class PointerChains {
 
 
 /* Pointers */
-#define SUN_COUNT_OFF 0x010D8C4
+#define SUN_COUNT_OFF 0x00001480
 extern std::vector<DWORD> sun_count_chain;
+
+/* Addresses in memory that do stuff */
+#define SUN_BOUNDS_CHECK 0x41E6F7 // Size: 10 bytes
