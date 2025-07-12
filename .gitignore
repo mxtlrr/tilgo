@@ -1,5 +1,7 @@
 bin
-src/*.o
+*.o
 
 .vscode/
 *swp*
+
+*.ini
