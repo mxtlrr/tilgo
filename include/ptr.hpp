@@ -29,7 +29,7 @@ class PointerChains {
 #define SUN_COUNT_OFF 0x00326658
 extern std::vector<DWORD> sun_count_chain;
 
-#define LEVEL_OFF 0x00326E14
+#define LEVEL_OFF 0x00329728
 extern std::vector<DWORD> level_off_chain;
 
 #define CURRENCY_OFF 0x00329698

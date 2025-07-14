@@ -52,8 +52,20 @@ void Mods(Game* g, PointerChains* p){
 	static char give_sun_buf[50] = { 0 };
 	ImGui::InputText("##", give_sun_buf, 15); ImGui::SameLine();
 	if(ImGui::Button("Give Sun"))
-	g->writeMem<DWORD>(std::atoi(give_sun_buf), p->GetIndex(0));
-	
+		g->writeMem<DWORD>(std::atoi(give_sun_buf), p->GetIndex(0));
+
+	// Change level
+	static char change_level_buf[5] = { 0 };
+	ImGui::InputText("##2", change_level_buf, 4); ImGui::SameLine();
+	if(ImGui::Button("Change Level")){ // Assuming input is in the form "[WORLD]-[LEVEL]"
+		uint8_t world = (change_level_buf[0])-0x30;
+		uint8_t level = std::atoi(change_level_buf+2);
+		DWORD resolved = ((world-1)*10) + level;
+		
+		g->writeMem<DWORD>(resolved, p->GetIndex(1));
+	}
+
+	// Fix pointers if they ever break.
 	if(ImGui::Button("Re-resolve Pointers")){
 		p->ClearPointerChains();
 		p->Resolve(g, SUN_COUNT_OFF, sun_count_chain);
