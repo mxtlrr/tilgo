@@ -35,8 +35,11 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
 void Window_Status(ImGuiIO& io, Game* g, PointerChains* p){
 	ImGui::Begin("Gameplay Status");
 
-	ImGui::Text("Sun Amount: %d", g->readMem<unsigned int>(p->GetIndex(0)));
-	
+	ImGui::Text("Sun Amount: %d", g->readMem<unsigned int>(p->GetIndex(SUN_COUNT)));
+	DWORD level = g->readMem<DWORD>(p->GetIndex(LEVEL));
+	ImGui::Text("Level: %d-%d\n", (int)((level+10)/10), (int)(level%10));
+	ImGui::Text("$%d\n", g->readMem<int>(p->GetIndex(PVZ_CURRENCY))*10);
+
 	ImGui::Text("FPS: %.2f", io.Framerate);
 	ImGui::End();
 }
@@ -54,6 +57,8 @@ void Mods(Game* g, PointerChains* p){
 	if(ImGui::Button("Re-resolve Pointers")){
 		p->ClearPointerChains();
 		p->Resolve(g, SUN_COUNT_OFF, sun_count_chain);
+		p->Resolve(g, LEVEL_OFF, level_off_chain);
+		p->Resolve(g, CURRENCY_OFF, currency_off_chain);
 	}
 
 	ImGui::End();

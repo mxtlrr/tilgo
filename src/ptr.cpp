@@ -4,6 +4,8 @@
 PointerChains::PointerChains(Game* g){
 	printf("flux: resolving pointer chains...\n");
 	this->Resolve(g, SUN_COUNT_OFF, sun_count_chain);
+	this->Resolve(g, LEVEL_OFF, level_off_chain);
+	this->Resolve(g, CURRENCY_OFF, currency_off_chain);
 }
 
 uintptr_t PointerChains::Resolve(Game* g, uintptr_t off, std::vector<DWORD> chain){
@@ -30,4 +32,12 @@ void PointerChains::ClearPointerChains(void){
 /***** ****/
 std::vector<DWORD> sun_count_chain = {
 	0x14, 0x90, 0x320, 0x30, 0x0, 0x8, 0x15C, 0x1bC, 0x5578
+};
+
+std::vector<DWORD> level_off_chain = {
+	0x174
+};
+
+std::vector<DWORD> currency_off_chain = {
+	0xA80
 };
