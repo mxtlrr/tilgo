@@ -15,4 +15,5 @@ class Window {
 		~Window();
 };
 
+extern bool checkbox_states[3];
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

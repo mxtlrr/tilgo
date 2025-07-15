@@ -36,12 +36,9 @@ extern std::vector<DWORD> level_off_chain;
 extern std::vector<DWORD> currency_off_chain;
 
 /* Addresses in memory that do stuff */
-#define SUN_BOUNDS_CHECK 0x41E6F7 // Size: 10 bytes
+#define SUN_BOUNDS_CHECK 			  0x41E6F7 // Size: 10 bytes
+#define CURRENCY_BOUNDS_CHECK   0x43376D // Size: 7 bytes
+extern uint8_t pre_currency[7];
+extern uint8_t pre_sun[10];
 
-
-// coin addition for normal coins: 0x43375f <-- add [eax+50], edx
-// sub_4336C0 v2:
-//		Sunflower:   v2 = 4
-//    Sun Shroom:  v2 = ?
-//		Yellow Coin: v2 = 2
-//		White Coin:  v2 = 1
+#define PAUSE_WHEN_NOT_IN_FOCUS 0x45272A // 0x74 -> disable, 0x75 enable

@@ -45,6 +45,11 @@ void Window_Status(ImGuiIO& io, Game* g, PointerChains* p){
 }
 
 
+bool checkbox_states[3] = {
+	false,				// Pause on lose focus
+	false,				// Currency bounds check removal
+	false					// Reserved
+};
 void Mods(Game* g, PointerChains* p){
 	ImGui::Begin("Mods");
 	
@@ -56,13 +61,36 @@ void Mods(Game* g, PointerChains* p){
 
 	// Change level
 	static char change_level_buf[5] = { 0 };
-	ImGui::InputText("##2", change_level_buf, 4); ImGui::SameLine();
+	ImGui::InputText("##2", change_level_buf, 5); ImGui::SameLine();
 	if(ImGui::Button("Change Level")){ // Assuming input is in the form "[WORLD]-[LEVEL]"
 		uint8_t world = (change_level_buf[0])-0x30;
 		uint8_t level = std::atoi(change_level_buf+2);
 		DWORD resolved = ((world-1)*10) + level;
 		
 		g->writeMem<DWORD>(resolved, p->GetIndex(1));
+	}
+
+	if(ImGui::Checkbox("Disable pause when not focused", &checkbox_states[0])){
+		g->writeMem<uint8_t>((checkbox_states[0] ? 0x74 : 0x75), PAUSE_WHEN_NOT_IN_FOCUS);
+		printf("flux mod: now set to 0x%x (%s)\n",
+			g->readMem<uint8_t>(PAUSE_WHEN_NOT_IN_FOCUS),
+			g->readMem<uint8_t>(PAUSE_WHEN_NOT_IN_FOCUS) == 0x74 ? "je" : "jne");
+	}
+
+	if(ImGui::Checkbox("Disable currency bounds check", &checkbox_states[1])){
+		uint8_t vc[7] ={0};
+		if(checkbox_states[1]) memset(vc, 0x90 /* nop */, 7);
+		else memcpy(vc, pre_currency, 7);
+		
+		for(uint8_t i = 0; i < 7; i++) g->writeMem<uint8_t>(vc[i], CURRENCY_BOUNDS_CHECK+i);
+	}
+
+	if(ImGui::Checkbox("Disable sun check", &checkbox_states[2])){
+		uint8_t vc2[10] = { 0 };
+		if(checkbox_states[2]) memset(vc2, 0x90 /* nop */, 10);
+		else memcpy(vc2, pre_sun, 10);
+		
+		for(uint8_t i = 0; i < 10; i++) g->writeMem<uint8_t>(vc2[i], SUN_BOUNDS_CHECK+i);
 	}
 
 	// Fix pointers if they ever break.
