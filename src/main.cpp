@@ -13,8 +13,6 @@ int main(void){
 	PointerChains p(&g);
 	Window w;
 
-	printf("%#x: %ld\n", p.GetIndex(0), g.readMem<DWORD>(p.GetIndex(0)));
-
 	// Initialize Direct3D
 	if (!CreateDeviceD3D(w.hwnd)){
 		CleanupDeviceD3D();
@@ -45,14 +43,6 @@ int main(void){
 		// Are there any debug events?
 		WaitForDebugEvent(&dbg, (int)(1000/60));
 		HandleDbg(&dbg);
-
-		// Clean up invalid threads
-		for(DWORD i = 0; i < threads.size(); i++){
-			if(threads[i].h == NULL) {
-				threads.erase(threads.begin()+i);
-				printf("removing index %ld. now %d threads remain\n", i, threads.size());
-			}
-		}
 
 		// No? Continue executing as normal.
 		ContinueDebugEvent(dbg.dwProcessId, dbg.dwThreadId, DBG_CONTINUE);

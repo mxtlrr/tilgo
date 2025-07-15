@@ -13,7 +13,9 @@
 typedef struct {
 	HANDLE h;
 	LPTHREAD_START_ROUTINE start;
+	LPVOID base;
 } thread_t;
+
 
 extern std::vector<thread_t> threads;
 void HandleDbg(DEBUG_EVENT* d);
