@@ -45,9 +45,9 @@ std::vector<DWORD> sun_count_chain = {
 };
 
 std::vector<DWORD> level_off_chain = {
-	0x9c, 0x38, 0x0, 0x6c, 0x0, 0x7c
+	0x174
 };
 
 std::vector<DWORD> currency_off_chain = {
-	0xA80
+	0x368, 0x40, 0x70
 };
